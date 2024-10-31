@@ -18,7 +18,13 @@ export default {
         'discount': '#9CA3AF',
         'custom-red': '#C81E1E',
         'custom-blue': '#0D3F64',
-        'custom-orange': '#DE4F46'
+        'custom-orange': '#DE4F46',
+        'custom-ash': '#6B7280',
+        'dark-gold': '#333333',
+        'gold': '#B88E2F',
+        'custom-red': '#F64B4B',
+        'paragraph': '#161C2D',
+        'dark-blue': '#1E1E1E'
       }
     },
   },

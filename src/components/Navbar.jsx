@@ -24,6 +24,14 @@ const Navbar = () => {
         </ul>
        </div>
 
+       <div className="desktop-menu hidden md:block">
+        <ul className="flex text-custom-ash gap-[20px] items-center">
+            <li><NavLink to='/about-us'>About Us</NavLink></li>
+            <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
+            <li><NavLink to='/make-enquiries'>Make Enquirires</NavLink></li>
+        </ul>
+       </div>
+
        <div className="md:hidden menu-button">
         <button onClick={() => setIsOpen(!isOpen)}>
           <img src={menu} alt="Menu" />
