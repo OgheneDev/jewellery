@@ -16,7 +16,9 @@ export default {
         'custom-thing': '#F9FAFB0D',
         'enquire': '#111827',
         'discount': '#9CA3AF',
-        'custom-red': '#C81E1E'
+        'custom-red': '#C81E1E',
+        'custom-blue': '#0D3F64',
+        'custom-orange': '#DE4F46'
       }
     },
   },
