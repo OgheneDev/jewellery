@@ -9,7 +9,7 @@ import red from '../assets/images/red.svg'
 
 const Brands = () => {
   return (
-    <section className='px-[20px] md:px-[50px] pb-[50px]'>
+    <section className='px-[20px] md:px-[100px] pb-[50px]'>
       <h3 className="mx-auto text-text-color w-fit uppercase text-[18px] relative after:content-[''] after:block after:w-1/2 after:border-b-2 after:border-text-color after:mx-auto after:mt-1">Brands for you</h3>
 
       <div className="container flex gap-[30px] justify-center py-[50px] flex-wrap">

@@ -12,9 +12,11 @@ const Navbar = () => {
 
   return (
     <nav className='flex justify-between items-start bg-background text-text-color px-[35px] py-[20px]'>
+       <Link to='/'>
        <div className="logo">
-        <h3 className='font-bold text-2xl '>Burn and Co.</h3>
+        <h3 className='font-bold text-2xl cursor-pointer '>Burn and Co.</h3>
        </div>
+       </Link>
 
        <div className={`md:hidden menu fixed w-full top-[70px] ${isOpen ? 'translate-x-0' : '-translate-x-full'} left-0 transition-transform duration-200 ease-in-out h-screen bg-white py-[30px]`}>
         <ul className='flex flex-col items-center gap-[30px] text-text-color text-[18px]'>

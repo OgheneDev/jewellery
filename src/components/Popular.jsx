@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Popular = () => {
   
@@ -27,7 +27,7 @@ const Popular = () => {
             discountPrice: '105.11',
             originalPrice: '120.23'
         }
-    ]
+    ];
 
   return (
     <section className='px-[20px] md:px-[50px] pb-[50px]'>
@@ -44,7 +44,10 @@ const Popular = () => {
                     <div className="text-content flex flex-col gap-[20px]">
                         <p>{card.name}</p>
                         <div className='flex justify-between'>
-                            <p className='flex items-center md:gap-[10px] gap-[20px]'>{card.discountPrice} <span className='text-discount'>{card.originalPrice}</span></p>
+                            <p className='flex items-center md:gap-[10px] gap-[20px]'>
+                                {card.discountPrice} 
+                                <span className='text-discount line-through'>{card.originalPrice}</span>
+                            </p>
                             <button className='bg-enquire text-white py-[10px] px-[20px] md:text-[12px] md:p-[10px]'>Make Enquiries</button>
                         </div>
                     </div>
@@ -58,7 +61,8 @@ const Popular = () => {
          <button className='border border-black uppercase text-[12px] py-[10px] px-[10px]'>Browse COllection</button>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Popular
+export default Popular;
+

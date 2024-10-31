@@ -3,7 +3,8 @@ import red from '../assets/images/red.svg'
 
 const PremiumBanner = () => {
   return (
-    <div className="premium p-[30px] bg-[url('/src/assets/images/woman.jpeg')] md:pt-[150px] bg-cover bg-no-repeat w-[100%] flex flex-col md:gap-[100px] gap-[50px] items-start">
+    <div className="px-[30px] md:px-[100px] pb-[50px]">
+        <div className="premium p-[30px] bg-[url('/src/assets/images/woman.jpeg')] md:pt-[150px] bg-cover bg-no-repeat w-[100%] flex flex-col md:gap-[100px] gap-[50px] items-start">
         <article className='flex flex-col gap-[20px]'>
             <h1 className='text-4xl text-custom-blue'>PREMIUM <span className='text-custom-orange'>COLLECTIONS</span></h1>
             <button className='bg-white text-custom-orange py-[10px] px-[20px] w-fit flex gap-[10px] items-center'>SHOP NOW <img src={red} alt="" /></button>
@@ -33,6 +34,7 @@ const PremiumBanner = () => {
             </div>
         </div>
       </div>
+    </div>
   )
 }
 

@@ -2,10 +2,10 @@ import React from 'react'
 
 const Overview = () => {
   return (
-    <section className='px-[30px] py-[50px]'>
+    <section className='px-[30px] py-[50px] md:px-[100px]'>
       <h3 className="mx-auto text-text-color w-fit uppercase text-[18px] relative after:content-[''] after:block after:w-1/2 after:border-b-2 after:border-text-color after:mx-auto after:mt-1">Company's Overview</h3>
 
-      <div className="container text-paragraph flex flex-col gap-[30px] py-[30px]">
+      <div className="container text-paragraph flex flex-col md:flex-row md:justify-between gap-[30px] py-[30px]">
         <article>
             <h2 className='font-bold text-3xl mb-[30px]'>Craftmanship</h2>
             <p className='text-[18px]'>We pride ourselves on the art and precision of our work. Every piece is meticulously crafted by our master artisans, ensuring the highest standards of quality.</p>

@@ -5,3 +5,9 @@
 body, input, button{
     font-family: "Actor", sans-serif;
 }
+
+.text-discount {
+    text-decoration: line-through;
+    color: inherit; /* Matches the parent color */
+}
+
