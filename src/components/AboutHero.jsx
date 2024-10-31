@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutHero = () => {
   return (
-    <section className="bg-[url('/src/assets/images/bg.png')] bg-[length:100%] bg-no-repeat w-full px-[30px] py-[40px] md:pb-[100px] md:pt-[150px]">
+    <section className="bg-[url('/src/assets/images/bg.png')] bg-[length:100%] bg-no-repeat w-full px-[30px] pt-[100px] py-[40px] md:pb-[100px] md:pt-[210px]">
       <div className="card flex flex-col items-start gap-[20px] bg-card-bg px-[30px] py-[40px] md:w-[500px] md:ml-auto rounded-[10px]">
         <article className='flex flex-col gap-[20px]'>
             <span className='uppercase text-dark-gold'>Burn and CO.</span>

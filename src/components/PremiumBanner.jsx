@@ -10,7 +10,7 @@ const PremiumBanner = () => {
             <button className='bg-white text-custom-orange py-[10px] px-[20px] w-fit flex gap-[10px] items-center'>SHOP NOW <img src={red} alt="" /></button>
         </article>
 
-        <div className="timer flex gap-[30px] text-white">
+        <div className="timer flex gap-[20px] text-white">
             <div className="day flex gap-[10px] flex-col">
                 <h5>05</h5>
                 <span>Days</span>

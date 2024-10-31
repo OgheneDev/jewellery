@@ -53,7 +53,7 @@ const Highlights = () => {
         <div 
           className="bg-[url('/src/assets/images/hos.jpeg')] 
           bg-cover bg-no-repeat h-[400px] p-[20px] 
-          flex flex-col justify-between"
+          flex flex-col justify-between text-white"
         >
           <h1 className='text-4xl'>Hosniye Saeghi</h1>
           <div>
