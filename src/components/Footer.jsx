@@ -10,7 +10,7 @@ import apple from '../assets/images/apple.svg'
 const Footer = () => {
   return (
     <div>
-      <footer className='bg-background flex flex-col text-center p-[30px]'>
+      <footer className='bg-background flex flex-col text-center md:hidden p-[30px]'>
        <div className='flex flex-col gap-[30px]'>
        <div className='flex flex-col gap-[30px] justify-center'>
             <div className='flex flex-col gap-[15px]'>
