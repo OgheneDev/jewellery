@@ -11,7 +11,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <nav className='flex justify-between items-start bg-background text-text-color px-[35px] py-[20px]'>
+    <nav className='flex justify-between items-center w-full fixed top-0 z-10 bg-background text-text-color px-[35px] py-[20px]'>
        <Link to='/'>
        <div className="logo">
         <h3 className='font-bold text-2xl cursor-pointer '>Burn and Co.</h3>
