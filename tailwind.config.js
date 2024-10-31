@@ -13,7 +13,10 @@ export default {
         'card-bg': '#1F2937',
         'custom-pink': '#F7C59F',
         'custom-brown': '#4F0F0F',
-        'custom-thing': '#F9FAFB0D'
+        'custom-thing': '#F9FAFB0D',
+        'enquire': '#111827',
+        'discount': '#9CA3AF',
+        'custom-red': '#C81E1E'
       }
     },
   },
