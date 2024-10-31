@@ -1,20 +1,24 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Highlights from './components/Highlights'
-import Popular from './components/Popular'
-import Brands from './components/Brands'
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import HomePage from './pages/HomePage';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<MainLayout />}>
+      <Route index element={<HomePage />} />
+
+    </Route>
+  )
+);
+
 
 const App = () => {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Highlights />
-      <Popular />
-      <Brands />
-    </>
-  )
+    <RouterProvider router={router}>
+      <MainLayout /> {/* Renders your layout and child components */}
+    </RouterProvider>
+  );
 }
 
 export default App
