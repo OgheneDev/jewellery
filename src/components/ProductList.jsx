@@ -54,7 +54,7 @@ const ProductList = () => {
             productData.map((card, index) => (
                 <div
                  key={index}
-                 className='card w-[100%] text-text-color md:w-[290px]'
+                 className='card w-[100%] text-text-color md:w-[250px]'
                 >
                     <img src={card.image} alt="" className='w-[100%] mb-[10px]' />
                     <div className="text-content flex flex-col gap-[20px]">

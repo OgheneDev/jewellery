@@ -98,13 +98,15 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile Toggle Button */}
+      <div className="px-[20px]">
+         {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className=" absolute top-[75px] left-4 z-50 bg-[#111827] text-white p-3 rounded-full shadow-lg md:hidden"
+        className="  bg-[#111827]  text-white p-3 rounded-full shadow-lg md:hidden"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+      </div>
 
       {/* Overlay */}
       {isOpen && (
@@ -114,60 +116,60 @@ const Sidebar = () => {
         />
       )}
 
-      {/* Sidebar Content */}
-      <div className={`
-        fixed top-0 left-0 h-full z-50 
-        bg-background w-[250px] py-[40px] px-[20px] text-card-bg
-        transform transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:relative md:transform-none md:block
-      `}>
-        <h5 className='uppercase text-[13px] mb-[30px]'>Make custom jewelries</h5>
+<div className={`
+  bg-background w-[250px] py-[40px] px-[20px] text-card-bg
+  md:static md:translate-x-0 md:z-0 
+  ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+  fixed top-0 left-0 h-full z-[999]
+  transform transition-transform duration-300 ease-in-out
+`}>
+  <h5 className='uppercase text-[13px] mb-[30px]'>Make custom jewelries</h5>
 
-        <div className="range-slider mb-[30px]">
-          <div className="">
-            <div className="flex justify-between items-center">
-              <span className='text-card-bg text-sm'>Measurements</span>
-              <span className="text-sm">0.1 g - 250 g</span>
-            </div>
-            <input
-              type="range"
-              min="0.1"
-              max="250"
-              step="0.1"
-              value={weight}
-              onChange={handleWeightChange}
-              className="w-full h-2 bg-[#EB5757] rounded-full appearance-none cursor-pointer focus:outline-none"
-            />
-            <div className="flex justify-between items center">
-              <span className="text-card-bg text-sm">Selected gram</span>
-              <span className="text-sm font-medium">{weight.toFixed(1)} g</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="categories flex flex-col gap-[20px] overflow-y-auto max-h-[calc(100vh-400px)]">
-          {renderCheckboxGroup('Gender', ['Women', 'Men', 'Youth'])}
-          {renderCheckboxGroup('Material', ['Gold', 'Diamond', 'Emerald', 'Ruby', 'Onyx', 'Chalcedony', 'Opal', 'Amethyst', 'Topaz'])}
-          {renderCheckboxGroup('Category', ['Rings', 'Bracelets', 'Necklace', 'Earrings', 'Nose Rings'])}
-          {renderCheckboxGroup('Size', ['Small', 'Medium', 'Large', 'Extra Large'])}
-        </div>
-
-        <div className="custom-price items-center flex justify-between mt-[25px]">
-          <h5 className='uppercase text-card-bg text-[13px]'>custom price</h5>
-          <span className='text-sm font-medium bg-[#111827] text-white py-[5px] px-[15px]'>${calculateTotalPrice().toFixed(2)}</span>
-        </div>
-
-        <button 
-          className='uppercase w-full bg-[#111827] text-white p-[6px] mt-[25px] text-[13px]'
-          onClick={() => {
-            alert(`Total Price: $${calculateTotalPrice().toFixed(2)}`);
-            setIsOpen(false);
-          }}
-        >
-          continue enquiries
-        </button>
+  <div className="range-slider mb-[30px]">
+    <div className="">
+      <div className="flex justify-between items-center">
+        <span className='text-card-bg text-sm'>Measurements</span>
+        <span className="text-sm">0.1 g - 250 g</span>
       </div>
+      <input
+        type="range"
+        min="0.1"
+        max="250"
+        step="0.1"
+        value={weight}
+        onChange={handleWeightChange}
+        className="w-full h-2 bg-[#EB5757] rounded-full appearance-none cursor-pointer focus:outline-none"
+      />
+      <div className="flex justify-between items-center">
+        <span className="text-card-bg text-sm">Selected gram</span>
+        <span className="text-sm font-medium">{weight.toFixed(1)} g</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="categories flex flex-col gap-[20px] md:overflow-visible overflow-y-auto md:max-h-none max-h-[calc(100vh-400px)]">
+    {renderCheckboxGroup('Gender', ['Women', 'Men', 'Youth'])}
+    {renderCheckboxGroup('Material', ['Gold', 'Diamond', 'Emerald', 'Ruby', 'Onyx', 'Chalcedony', 'Opal', 'Amethyst', 'Topaz'])}
+    {renderCheckboxGroup('Category', ['Rings', 'Bracelets', 'Necklace', 'Earrings', 'Nose Rings'])}
+    {renderCheckboxGroup('Size', ['Small', 'Medium', 'Large', 'Extra Large'])}
+  </div>
+
+  <div className="custom-price items-center flex justify-between mt-[25px]">
+    <h5 className='uppercase text-card-bg text-[13px]'>custom price</h5>
+    <span className='text-sm font-medium bg-[#111827] text-white py-[5px] px-[15px]'>${calculateTotalPrice().toFixed(2)}</span>
+  </div>
+
+  <button 
+    className='uppercase w-full bg-[#111827] text-white p-[6px] mt-[25px] text-[13px]'
+    onClick={() => {
+      alert(`Total Price: $${calculateTotalPrice().toFixed(2)}`);
+      setIsOpen(false);
+    }}
+  >
+    continue enquiries
+  </button>
+</div>
+
     </>
   );
 };
