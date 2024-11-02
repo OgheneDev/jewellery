@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Popular = () => {
   
@@ -48,7 +49,9 @@ const Popular = () => {
                                 {card.discountPrice} 
                                 <span className='text-discount line-through'>{card.originalPrice}</span>
                             </p>
-                            <button className='bg-enquire text-white py-[10px] px-[20px] md:text-[12px] md:p-[10px]'>Make Enquiries</button>
+                            <button className='bg-enquire text-white py-[10px] px-[20px] md:text-[12px] md:p-[10px]'>
+                                Make Enquiries
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -57,8 +60,16 @@ const Popular = () => {
       </div>
 
       <div className="buttons flex gap-[30px] justify-center">
-         <button className='bg-custom-red text-white border border-black text-[12px] py-[10px] px-[10px]'>MAKE CUSTOM JEWELLRY</button>
-         <button className='border border-black uppercase text-[12px] py-[10px] px-[10px]'>Browse COllection</button>
+         <Link to='/make-enquiries'>
+         <button className='bg-custom-red text-white border border-black text-[12px] py-[10px] px-[10px]'>
+            MAKE CUSTOM JEWELLRY
+         </button>
+         </Link>
+         <Link to='/make-enquiries'>
+         <button className='border border-black uppercase text-[12px] py-[10px] px-[10px]'>
+            Browse COllection
+         </button>
+         </Link>
       </div>
     </section>
   );

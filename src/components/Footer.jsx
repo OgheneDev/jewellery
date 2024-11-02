@@ -151,7 +151,7 @@ const Footer = () => {
             <div className="form mt-[15px] flex flex-col gap-[10px]">
                 <label htmlFor="" className='uppercase text-[13px] text-[#1F2937]'>Sign up for Burn and Co latest news</label>
                 <form action="" className='flex gap-[15px]'>
-                    <input type="email" placeholder='Your email' className='p-[5px] pl-[10px] w-[300px]' />
+                    <input type="email" placeholder='Your email' className='p-[5px] pl-[10px] w-[300px] border border-[#9CA3AF]' />
                     <button className='bg-[#1F2937] text-white uppercase text-[13px] py-[5px] px-[20px]'>Subscribe</button>
                     
                 </form>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Chat from './Chat';
-import close from '../assets/images/close-chat.svg';
+import { X, MessageCircle } from 'lucide-react';
 import { db } from '../firebaseConfig'; // Import Firebase config
 import { doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { collection } from 'firebase/firestore';
@@ -63,28 +63,53 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
 
   return (
     <div>
-      <div className="floating-chat-button" onClick={toggleChat}>
-        💬
-        {unreadCount > 0 && (
-          <span className="unread-count-badge">{unreadCount}</span> // Notification badge for unread messages
-        )}
+    {/* Floating Button */}
+    <button 
+      onClick={toggleChat}
+      className="fixed bottom-6 right-6 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 z-50"
+    >
+      <MessageCircle size={24} />
+      {unreadCount > 0 && (
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-medium">
+          {unreadCount}
+        </span>
+      )}
+    </button>
+
+    {/* Chat Window */}
+    <div
+      className={`fixed bottom-24 right-6 w-[340px] h-[500px] bg-white rounded-xl shadow-2xl z-50 flex flex-col overflow-hidden transition-all duration-300 ease-out
+        ${isOpen 
+          ? 'translate-y-0 opacity-100' 
+          : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+    >
+      {/* Header */}
+      <div className="bg-blue-600 p-4 text-white">
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold text-xl mb-3">
+              C
+            </div>
+            <h3 className="font-semibold text-lg mb-1">Customer Care</h3>
+            <p className="text-sm text-blue-100">
+              Chat with our customer care representatives for quick responses
+            </p>
+          </div>
+          <button 
+            onClick={toggleChat}
+            className="p-1.5 bg-blue-500 rounded-full hover:bg-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
+          >
+            <X size={20} />
+          </button>
+        </div>
       </div>
 
-      <div className={`floating-chat-window ${isOpen ? 'open' : 'closed'}`}>
-        <div className="chat-header">
-          <div className="head">
-            <div className="profile">C</div>
-            <h3>Customer Care</h3>
-            <p>Chat with our customer care representatives for quick responses</p>
-          </div>
-          <span style={{ cursor: 'pointer' }} onClick={toggleChat}>
-            <img src={close} alt="Close chat" />
-          </span>
-        </div>
-
-        <div style={{ flex: 1, overflowY: 'auto' }}>
-          {!isChatStarted ? (
-            <form onSubmit={startChat} className="user-details-form">
+      {/* Chat Content */}
+      <div className="flex-1 overflow-y-auto bg-gray-50">
+        {!isChatStarted ? (
+          <form onSubmit={startChat} className="p-6 space-y-4">
+            <div className="space-y-4">
               <input
                 type="text"
                 name="name"
@@ -92,6 +117,7 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
                 onChange={handleChange}
                 placeholder="Enter your full name"
                 required
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
               />
               <input
                 type="email"
@@ -100,24 +126,31 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
                 onChange={handleChange}
                 placeholder="Enter your email"
                 required
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
               />
-              <input
-                type="text"
+              <textarea
                 name="firstMessage"
                 value={userDetails.firstMessage}
                 onChange={handleChange}
                 placeholder="Enter your message"
                 required
-                className="first-message"
+                rows={4}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors resize-none"
               />
-              <button type="submit">Start Chat</button>
-            </form>
-          ) : (
-            <Chat userDetails={userDetails} />
-          )}
-        </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full py-2.5 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+            >
+              Start Chat
+            </button>
+          </form>
+        ) : (
+          <Chat userDetails={userDetails} />
+        )}
       </div>
     </div>
+  </div>
   );
 };
 
