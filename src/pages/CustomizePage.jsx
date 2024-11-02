@@ -5,7 +5,7 @@ import ProductList from '../components/ProductList'
 const CustomizePage = () => {
   return (
     <div className='pt-[100px] pb-[40px]'>
-      <div className="md:flex md:gap-[10px] md:px-[80px]">
+      <div className="md:flex md:gap-[10px] md:items-start md:px-[80px]">
       <Sidebar />
       <ProductList />
       </div>
