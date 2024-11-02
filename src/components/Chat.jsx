@@ -103,15 +103,15 @@ const Chat = ({ userDetails }) => {
   const sendEmail = async (messageData) => {
   try {
     await emailjs.send(
-      'service_4hprqpn',
-      'template_h1e5q9n',
+      'service_u0zwyvr',
+      'template_6hnubrk',
       {
         from_email: userDetails.email,  // Reply to
         subject: `New message from ${userDetails.name}`,
         from_name: userDetails.name,
         message: messageData.text,
       },
-      '7qAJh4nn_NRkdcbVm'
+      'onwdvPqDL6qqR0QpZ'
     );
     console.log('Email sent successfully');
   } catch (error) {
