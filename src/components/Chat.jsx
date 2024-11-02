@@ -7,6 +7,7 @@ import { Send } from 'lucide-react';
 const Chat = ({ userDetails }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state for skeletons
   const chatId = userDetails.email;
 
   useEffect(() => {
@@ -55,11 +56,13 @@ const Chat = ({ userDetails }) => {
         const unsubscribe = onSnapshot(q, (snapshot) => {
           const fetchedMessages = snapshot.docs.map((doc) => doc.data());
           setMessages(fetchedMessages);
+          setLoading(false); // Disable loading state once data is fetched
         });
 
         return unsubscribe;
       } catch (error) {
         console.error("Error initializing chat:", error);
+        setLoading(false); // Disable loading state in case of error
       }
     };
 
@@ -101,23 +104,23 @@ const Chat = ({ userDetails }) => {
   };
 
   const sendEmail = async (messageData) => {
-  try {
-    await emailjs.send(
-      'service_u0zwyvr',
-      'template_6hnubrk',
-      {
-        from_email: userDetails.email,  // Reply to
-        subject: `New message from ${userDetails.name}`,
-        from_name: userDetails.name,
-        message: messageData.text,
-      },
-      'onwdvPqDL6qqR0QpZ'
-    );
-    console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-};
+    try {
+      await emailjs.send(
+        'service_u0zwyvr',
+        'template_6hnubrk',
+        {
+          from_email: userDetails.email,
+          subject: `New message from ${userDetails.name}`,
+          from_name: userDetails.name,
+          message: messageData.text,
+        },
+        'onwdvPqDL6qqR0QpZ'
+      );
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return '';
@@ -128,33 +131,44 @@ const Chat = ({ userDetails }) => {
   return (
     <div className="flex flex-col h-full border border-gray-200 overflow-hidden bg-white font-sans">
       <div className="flex-1 p-6 overflow-y-auto bg-gray-50 space-y-4">
-        {messages.map((msg, index) => (
-          <div key={index} className="flex flex-col space-y-1">
-            {msg.sender !== userDetails.name && (
-              <span className="text-sm font-semibold text-gray-700">
-                {msg.sender}
-              </span>
-            )}
-            <div className={`flex flex-col ${msg.sender === userDetails.name ? 'items-end' : 'items-start'}`}>
-              <div
-                className={`max-w-[70%] p-3 rounded-2xl shadow-sm ${
-                  msg.sender === userDetails.name
-                    ? 'bg-blue-600 text-white rounded-tr-none ml-auto'
-                    : 'bg-gray-200 text-gray-800 rounded-tl-none'
-                } text-sm leading-relaxed`}
-              >
-                {msg.text}
-              </div>
-              <span
-                className={`text-xs text-gray-500 mt-1 ${
-                  msg.sender === userDetails.name ? 'text-right' : 'text-left'
-                }`}
-              >
-                {formatTimestamp(msg.timestamp)}
-              </span>
+        {loading ? (
+          // Skeleton loading indicators
+          Array(5).fill('').map((_, index) => (
+            <div key={index} className="flex flex-col space-y-1 animate-pulse">
+              <div className="bg-gray-300 rounded-lg p-3 max-w-[70%]"></div>
+              <div className="bg-gray-200 rounded-lg p-2 max-w-[50%] h-4"></div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          // Render messages once loading is complete
+          messages.map((msg, index) => (
+            <div key={index} className="flex flex-col space-y-1">
+              {msg.sender !== userDetails.name && (
+                <span className="text-sm font-semibold text-gray-700">
+                  {msg.sender}
+                </span>
+              )}
+              <div className={`flex flex-col ${msg.sender === userDetails.name ? 'items-end' : 'items-start'}`}>
+                <div
+                  className={`max-w-[70%] p-3 rounded-2xl shadow-sm ${
+                    msg.sender === userDetails.name
+                      ? 'bg-blue-600 text-white rounded-tr-none ml-auto'
+                      : 'bg-gray-200 text-gray-800 rounded-tl-none'
+                  } text-sm leading-relaxed`}
+                >
+                  {msg.text}
+                </div>
+                <span
+                  className={`text-xs text-gray-500 mt-1 ${
+                    msg.sender === userDetails.name ? 'text-right' : 'text-left'
+                  }`}
+                >
+                  {formatTimestamp(msg.timestamp)}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       <form onSubmit={sendMessage} className="sticky bottom-0 p-4 bg-gray-100 border-t border-gray-200">

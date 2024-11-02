@@ -49,7 +49,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <div className="cards pb-[50px] px-[20px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-[20px] md:gap-[30px]">
+      <div className="cards pb-[50px] px-[20px] pt-[50px] md:pt-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-[20px] md:gap-[30px]">
         {
             productData.map((card, index) => (
                 <div
