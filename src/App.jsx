@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import AboutUsPage from './pages/AboutUsPage';
 import FloatingChat from './components/FloatingChat';
 import CustomizePage from './pages/CustomizePage';
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<MainLayout />}>
-      <Route index element={<HomePage />} />
-      <Route path='/about-us' element={<AboutUsPage />} />
-      <Route path='/make-enquiries' element={<CustomizePage />} />
-    </Route>
-  )
-);
 
 const App = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -23,6 +12,17 @@ const App = () => {
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
+
+  // Move the router configuration inside the App component
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<MainLayout />}>
+        <Route index element={<HomePage toggleChat={toggleChat} />} />
+        <Route path='/about-us' element={<AboutUsPage toggleChat={toggleChat} />} />
+        <Route path='/make-enquiries' element={<CustomizePage toggleChat={toggleChat} />} />
+      </Route>
+    )
+  );
 
   return (
     <>
@@ -36,5 +36,6 @@ const App = () => {
 };
 
 export default App;
+
 
 

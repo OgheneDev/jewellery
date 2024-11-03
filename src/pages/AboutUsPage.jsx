@@ -8,13 +8,13 @@ import Process from '../components/Process'
 import Overview from '../components/Overview'
 import PremiumBanner from '../components/PremiumBanner'
 
-const AboutUsPage = () => {
+const AboutUsPage = ({ toggleChat }) => {
   return (
     <>
       <AboutHero />
       <About />
       <Values />
-      <Popular />
+      <Popular toggleChat={toggleChat} />
       <BrandHeader />
       <Process />
       <Overview />

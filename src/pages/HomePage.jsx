@@ -4,12 +4,12 @@ import Highlights from '../components/Highlights'
 import Popular from '../components/Popular'
 import Brands from '../components/Brands'
 
-const HomePage = () => {
+const HomePage = ({ toggleChat }) => {
   return (
     <>
       <Hero />
       <Highlights />
-      <Popular />
+      <Popular toggleChat={toggleChat} />
       <Brands />
     </>
   )

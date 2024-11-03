@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ toggleChat }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [weight, setWeight] = useState(225.0);
   const [selections, setSelections] = useState({
-    gender: [],
-    material: [],
-    category: [],
-    size: []
+    gender: '',
+    material: '',
+    category: '',
+    size: ''
   });
 
   // Pricing data
@@ -48,30 +48,21 @@ const Sidebar = () => {
     setWeight(parseFloat(event.target.value));
   };
 
-  const handleCheckboxChange = (category, value) => {
-    setSelections(prev => {
-      const currentSelections = prev[category];
-      const newSelections = currentSelections.includes(value)
-        ? currentSelections.filter(item => item !== value)
-        : [...currentSelections, value];
-      
-      return {
-        ...prev,
-        [category]: newSelections
-      };
-    });
+  const handleSelectionChange = (category, value) => {
+    setSelections(prev => ({
+      ...prev,
+      [category]: prev[category] === value ? '' : value
+    }));
   };
 
   const calculateTotalPrice = () => {
     let totalPrice = 1000;
     totalPrice += weight * 10;
     
-    Object.entries(selections).forEach(([category, selectedItems]) => {
-      selectedItems.forEach(item => {
-        if (PRICING[category][item]) {
-          totalPrice += PRICING[category][item];
-        }
-      });
+    Object.entries(selections).forEach(([category, selectedItem]) => {
+      if (selectedItem && PRICING[category][selectedItem]) {
+        totalPrice += PRICING[category][selectedItem];
+      }
     });
 
     return Math.min(totalPrice, 6000);
@@ -79,17 +70,18 @@ const Sidebar = () => {
 
   const renderCheckboxGroup = (category, items) => (
     <div className="category flex flex-col gap-[20px]">
-      <h5 className='text-[13px] uppercase'>{category}</h5>
+      <h5 className="text-[13px] uppercase">{category}</h5>
       <div className="form-groups flex flex-col gap-[10px]">
         {items.map(item => (
           <div key={item} className="form-group flex gap-[10px] items-center text-[13px]">
             <input 
-              type="checkbox" 
-              id={item.toLowerCase().replace(' ', '')}
-              checked={selections[category.toLowerCase()].includes(item)}
-              onChange={() => handleCheckboxChange(category.toLowerCase(), item)}
+              type="radio" 
+              id={`${category}-${item}`.toLowerCase().replace(' ', '')}
+              name={category.toLowerCase()}
+              checked={selections[category.toLowerCase()] === item}
+              onChange={() => handleSelectionChange(category.toLowerCase(), item)}
             />
-            <label htmlFor={item.toLowerCase().replace(' ', '')}>{item}</label>
+            <label htmlFor={`${category}-${item}`.toLowerCase().replace(' ', '')}>{item}</label>
           </div>
         ))}
       </div>
@@ -99,16 +91,14 @@ const Sidebar = () => {
   return (
     <>
       <div className="px-[20px]">
-         {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="  bg-[#111827]  text-white p-3 rounded-full shadow-lg md:hidden"
-      >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-[#111827] text-white p-3 rounded-full shadow-lg md:hidden"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Overlay */}
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
@@ -116,60 +106,56 @@ const Sidebar = () => {
         />
       )}
 
-<div className={`
-  bg-background w-[250px] py-[40px] px-[20px] text-card-bg
-  md:static md:translate-x-0 md:z-0 
-  ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-  fixed top-0 left-0 h-full z-[999]
-  transform transition-transform duration-300 ease-in-out
-`}>
-  <h5 className='uppercase text-[13px] mb-[30px]'>Make custom jewelries</h5>
+      <div className={`
+        bg-background w-[250px] py-[40px] px-[20px] text-card-bg
+        md:static md:translate-x-0 md:z-0 
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        fixed top-0 left-0 h-full z-[999]
+        transform transition-transform duration-300 ease-in-out
+      `}>
+        <h5 className="uppercase text-[13px] mb-[30px]">Make custom jewelries</h5>
 
-  <div className="range-slider mb-[30px]">
-    <div className="">
-      <div className="flex justify-between items-center">
-        <span className='text-card-bg text-sm'>Measurements</span>
-        <span className="text-sm">0.1 g - 250 g</span>
+        <div className="range-slider mb-[30px]">
+          <div className="">
+            <div className="flex justify-between items-center">
+              <span className="text-card-bg text-sm">Measurements</span>
+              <span className="text-sm">0.1 g - 250 g</span>
+            </div>
+            <input
+              type="range"
+              min="0.1"
+              max="250"
+              step="0.1"
+              value={weight}
+              onChange={handleWeightChange}
+              className="w-full h-2 bg-[#EB5757] rounded-full appearance-none cursor-pointer focus:outline-none"
+            />
+            <div className="flex justify-between items-center">
+              <span className="text-card-bg text-sm">Selected gram</span>
+              <span className="text-sm font-medium">{weight.toFixed(1)} g</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="categories flex flex-col gap-[20px] md:overflow-visible overflow-y-auto md:max-h-none max-h-[calc(100vh-400px)]">
+          {renderCheckboxGroup('Gender', ['Women', 'Men', 'Youth'])}
+          {renderCheckboxGroup('Material', ['Gold', 'Diamond', 'Emerald', 'Ruby', 'Onyx', 'Chalcedony', 'Opal', 'Amethyst', 'Topaz'])}
+          {renderCheckboxGroup('Category', ['Rings', 'Bracelets', 'Necklace', 'Earrings', 'Nose Rings'])}
+          {renderCheckboxGroup('Size', ['Small', 'Medium', 'Large', 'Extra Large'])}
+        </div>
+
+        <div className="custom-price items-center flex justify-between mt-[25px]">
+          <h5 className="uppercase text-card-bg text-[13px]">custom price</h5>
+          <span className="text-sm font-medium bg-[#111827] text-white py-[5px] px-[15px]">${calculateTotalPrice().toFixed(2)}</span>
+        </div>
+
+        <button 
+          className="uppercase w-full bg-[#111827] text-white p-[6px] mt-[25px] text-[13px]"
+          onClick={toggleChat}
+        >
+          continue enquiries
+        </button>
       </div>
-      <input
-        type="range"
-        min="0.1"
-        max="250"
-        step="0.1"
-        value={weight}
-        onChange={handleWeightChange}
-        className="w-full h-2 bg-[#EB5757] rounded-full appearance-none cursor-pointer focus:outline-none"
-      />
-      <div className="flex justify-between items-center">
-        <span className="text-card-bg text-sm">Selected gram</span>
-        <span className="text-sm font-medium">{weight.toFixed(1)} g</span>
-      </div>
-    </div>
-  </div>
-
-  <div className="categories flex flex-col gap-[20px] md:overflow-visible overflow-y-auto md:max-h-none max-h-[calc(100vh-400px)]">
-    {renderCheckboxGroup('Gender', ['Women', 'Men', 'Youth'])}
-    {renderCheckboxGroup('Material', ['Gold', 'Diamond', 'Emerald', 'Ruby', 'Onyx', 'Chalcedony', 'Opal', 'Amethyst', 'Topaz'])}
-    {renderCheckboxGroup('Category', ['Rings', 'Bracelets', 'Necklace', 'Earrings', 'Nose Rings'])}
-    {renderCheckboxGroup('Size', ['Small', 'Medium', 'Large', 'Extra Large'])}
-  </div>
-
-  <div className="custom-price items-center flex justify-between mt-[25px]">
-    <h5 className='uppercase text-card-bg text-[13px]'>custom price</h5>
-    <span className='text-sm font-medium bg-[#111827] text-white py-[5px] px-[15px]'>${calculateTotalPrice().toFixed(2)}</span>
-  </div>
-
-  <button 
-    className='uppercase w-full bg-[#111827] text-white p-[6px] mt-[25px] text-[13px]'
-    onClick={() => {
-      alert(`Total Price: $${calculateTotalPrice().toFixed(2)}`);
-      setIsOpen(false);
-    }}
-  >
-    continue enquiries
-  </button>
-</div>
-
     </>
   );
 };

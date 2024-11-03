@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Popular = () => {
+const Popular = ({ toggleChat }) => {
   
     const popularData = [
         {
@@ -49,7 +49,10 @@ const Popular = () => {
                                 {card.discountPrice} 
                                 <span className='text-discount line-through'>{card.originalPrice}</span>
                             </p>
-                            <button className='bg-enquire text-white py-[10px] px-[20px] md:text-[12px] md:p-[10px]'>
+                            <button 
+                            className='bg-enquire text-white py-[10px] px-[20px] md:text-[12px] md:p-[10px]'
+                            onClick={toggleChat}
+                            >
                                 Make Enquiries
                             </button>
                         </div>

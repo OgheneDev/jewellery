@@ -30,6 +30,7 @@ const Hero = () => {
         controls
         autoPlay
         loop
+        muted
         ></video>
       </div>
     </section>

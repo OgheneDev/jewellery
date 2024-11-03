@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductList = () => {
+const ProductList = ({ toggleChat }) => {
 
   const productData = [
     {
@@ -70,7 +70,10 @@ const ProductList = () => {
                              <span className=' line-through'>{card.originalPrice}</span>
                              <span className='text-white p-[5px] text-[12px] bg-[#111827]'>New Arrivals</span>
                         </div>
-                        <button className='bg-enquire text-white py-[10px] px-[20px] md:text-[14px] md:p-[10px]'>Make Enquiries</button>
+                        <button
+                         className='bg-enquire text-white py-[10px] px-[20px] md:text-[14px] md:p-[10px]'
+                         onClick={toggleChat}
+                         >Make Enquiries</button>
                     </div>
                 </div>
             ))

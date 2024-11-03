@@ -31,7 +31,7 @@ const Footer = () => {
             <div className='flex flex-col gap-[15px]'>
                 <label className='uppercase text-card-bg'>Company Info</label>
                 <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px]'>
-                    <li>About Laura’s Closet </li>
+                    <li>About Burn and Co.</li>
                     <li>Social Responsibility</li>
                     <li>Affiliate</li>
                     <li>Fashion Blogger</li>
@@ -86,7 +86,7 @@ const Footer = () => {
 
        <div>
          <div className="policy mt-[20px] text-custom-ash">
-            <span>©2010-2022 Laura’s Closet All Rights Reserved</span>
+            <span>©2010-2022 Burn and Co All Rights Reserved</span>
          </div>
        </div>
       </footer>
@@ -97,7 +97,7 @@ const Footer = () => {
             <div className='flex flex-col gap-[15px]'>
                 <label className='uppercase text-card-bg'>Company Info</label>
                 <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px]'>
-                    <li>About Laura’s Closet </li>
+                    <li>About Burn and Co </li>
                     <li>Social Responsibility</li>
                     <li>Affiliate</li>
                     <li>Fashion Blogger</li>
@@ -162,7 +162,7 @@ const Footer = () => {
 
          <div className="second flex justify-between">
             <div className="text-content text-[13px] text-[#6B7280]">
-                <label htmlFor="">©2010-2022 Laura’s Closet All Rights Reserved</label>
+                <label htmlFor="">©2010-2022 Burn and Co All Rights Reserved</label>
                 <div className="spans py-[10px] grid gap-[5px] grid-cols-3">
                     <span>Privacy Center</span>
                     <span>Privacy & Cookie Policy</span>
