@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, serverTimestamp, runTransaction, increment } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, onSnapshot, doc, setDoc, serverTimestamp, runTransaction } from 'firebase/firestore';
 import emailjs from 'emailjs-com';
 import { Send } from 'lucide-react';
 
 const Chat = ({ userDetails }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state for skeletons
+  const [loading, setLoading] = useState(true);
   const chatId = userDetails.email;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Chat = ({ userDetails }) => {
               userName: userDetails.name,
               lastUpdated: serverTimestamp(),
               initialMessagesSent: false,
-              unreadCount: 0, // Initialize unread count
+              unreadCount: 0,
             });
           }
 
@@ -48,7 +48,10 @@ const Chat = ({ userDetails }) => {
               isInitialMessage: true
             });
 
-            transaction.update(chatRef, { initialMessagesSent: true });
+            transaction.update(chatRef, { 
+              initialMessagesSent: true,
+              unreadCount: 1 // Set initial unread count for welcome message
+            });
           }
         });
 
@@ -56,13 +59,13 @@ const Chat = ({ userDetails }) => {
         const unsubscribe = onSnapshot(q, (snapshot) => {
           const fetchedMessages = snapshot.docs.map((doc) => doc.data());
           setMessages(fetchedMessages);
-          setLoading(false); // Disable loading state once data is fetched
+          setLoading(false);
         });
 
         return unsubscribe;
       } catch (error) {
         console.error("Error initializing chat:", error);
-        setLoading(false); // Disable loading state in case of error
+        setLoading(false);
       }
     };
 
@@ -87,15 +90,12 @@ const Chat = ({ userDetails }) => {
       try {
         await addDoc(collection(db, 'chats', chatId, 'messages'), messageData);
   
-        // Increment unread count for admin
+        // Only update lastUpdated timestamp, don't increment unreadCount for user messages
         await setDoc(doc(db, 'chats', chatId), {
-          lastUpdated: serverTimestamp(),
-          unreadCount: increment(1)
+          lastUpdated: serverTimestamp()
         }, { merge: true });
   
-        // Send email
         await sendEmail(messageData);
-  
         setMessage('');
       } catch (error) {
         console.error("Error sending message:", error);
@@ -125,7 +125,11 @@ const Chat = ({ userDetails }) => {
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return '';
     const date = timestamp.toDate();
-    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).toLowerCase();
+    return date.toLocaleString('en-US', { 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      hour12: true 
+    }).toLowerCase();
   };
 
   return (
@@ -178,7 +182,7 @@ const Chat = ({ userDetails }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type a message..."
-            className="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors"
+            className="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors"
           />
           <button
             type="submit"
