@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import vid from '../assets/videos/vid.png'
 import arrow from '../assets/images/arrow.png'
 
 const Hero = () => {
@@ -26,11 +25,12 @@ const Hero = () => {
       </div>
       
       <div className="w-full md:w-[30%]">
-        <img 
-          src={vid} 
-          alt="Video thumbnail" 
-          className='w-full h-auto object-cover'
-        />
+        <video 
+        src="https://res.cloudinary.com/dgc8cd67w/video/upload/v1730620223/VID-20241102-WA0039_cs3niu.mp4"
+        controls
+        autoPlay
+        loop
+        ></video>
       </div>
     </section>
   )
