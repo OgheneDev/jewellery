@@ -27,7 +27,6 @@ const Hero = () => {
       <div className="w-full md:w-[30%]">
         <video 
         src="https://res.cloudinary.com/dgc8cd67w/video/upload/v1730620223/VID-20241102-WA0039_cs3niu.mp4"
-        controls
         autoPlay
         loop
         muted
