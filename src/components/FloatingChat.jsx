@@ -4,27 +4,20 @@ import { X, MessageCircle } from 'lucide-react';
 import { db } from '../firebaseConfig';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 
-const FloatingChat = ({ isOpen, toggleChat }) => {
-  const [userDetails, setUserDetails] = useState({ name: '', email: '', firstMessage: '' });
+const FloatingChat = ({ isOpen, toggleChat, userDetails, onUserDetailsUpdate }) => {
   const [isChatStarted, setIsChatStarted] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    const storedUserDetails = localStorage.getItem('userDetails');
     const storedChatStarted = localStorage.getItem('isChatStarted');
 
-    if (storedUserDetails) {
-      setUserDetails(JSON.parse(storedUserDetails));
-    }
     if (storedChatStarted) {
       setIsChatStarted(JSON.parse(storedChatStarted));
     }
 
-    if (storedUserDetails) {
-      const userEmail = JSON.parse(storedUserDetails).email;
-      const chatRef = doc(db, 'chats', userEmail);
+    if (userDetails.email) {
+      const chatRef = doc(db, 'chats', userDetails.email);
 
-      // Listen to unreadCount changes in the chat document
       const unsubscribe = onSnapshot(chatRef, (snapshot) => {
         if (snapshot.exists()) {
           const chatData = snapshot.data();
@@ -34,9 +27,8 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
 
       return () => unsubscribe();
     }
-  }, []);
+  }, [userDetails.email]);
 
-  // Reset unread count when chat is opened
   useEffect(() => {
     if (isOpen && userDetails.email) {
       const chatRef = doc(db, 'chats', userDetails.email);
@@ -50,24 +42,31 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
     e.preventDefault();
     setIsChatStarted(true);
     localStorage.setItem('isChatStarted', JSON.stringify(true));
-    localStorage.setItem('userDetails', JSON.stringify(userDetails));
   };
 
   const handleChange = (e) => {
-    const newUserDetails = { ...userDetails, [e.target.name]: e.target.value };
-    setUserDetails(newUserDetails);
+    const newUserDetails = { 
+      ...userDetails, 
+      [e.target.name]: e.target.value 
+    };
+    onUserDetailsUpdate(newUserDetails);
   };
+
+  
 
   return (
     <div>
       {/* Floating Button */}
       <button 
         onClick={toggleChat}
-        className="fixed bottom-6 right-6 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 z-50"
+        className="fixed bottom-6 right-6 p-4 bg-blue-600 text-white
+         rounded-full shadow-lg hover:bg-blue-700 transition-colors
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 z-50"
       >
         <MessageCircle size={24} />
         {unreadCount > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-medium">
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white
+           text-xs rounded-full h-6 w-6 flex items-center justify-center font-medium">
             {unreadCount}
           </span>
         )}
@@ -75,7 +74,9 @@ const FloatingChat = ({ isOpen, toggleChat }) => {
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-24 right-6 w-[340px] h-[500px] bg-white rounded-xl shadow-2xl z-50 flex flex-col overflow-hidden transition-all duration-300 ease-out
+        className={`fixed bottom-24 right-6 w-[340px] h-[500px]
+           bg-white rounded-xl shadow-2xl z-50 flex flex-col
+            overflow-hidden transition-all duration-300 ease-out
           ${isOpen 
             ? 'translate-y-0 opacity-100' 
             : 'translate-y-full opacity-0 pointer-events-none'

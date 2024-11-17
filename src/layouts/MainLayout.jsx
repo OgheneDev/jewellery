@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
-const MainLayout = () => {
+const MainLayout = ({toggleChat}) => {
   const location = useLocation(); // Get the current location
 
   useEffect(() => {
@@ -15,9 +15,9 @@ const MainLayout = () => {
 
   return (
     <>
-      <Navbar />
-      <Outlet />
-      <Footer />
+      <Navbar toggleChat={toggleChat} />
+      <Outlet  />
+      <Footer toggleChat={toggleChat} />
     </>
   )
 }

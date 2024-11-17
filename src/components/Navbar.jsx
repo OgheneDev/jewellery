@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import menu from '../assets/images/menu.svg';
 
-const Navbar = () => {
+const Navbar = ({toggleChat}) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -20,17 +20,17 @@ const Navbar = () => {
 
       <div className={`md:hidden menu fixed w-full top-[70px] ${isOpen ? 'translate-x-0' : '-translate-x-full'} left-0 transition-transform duration-200 ease-in-out h-screen bg-white py-[30px]`}>
         <ul className='flex flex-col items-center gap-[30px] text-text-color text-[18px]'>
-          <li><NavLink to='/about-us' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>About Us</NavLink></li>
-          <li><NavLink to='/contact-us' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>Contact Us</NavLink></li>
-          <li><NavLink to='/make-enquiries' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>Make Enquiries</NavLink></li>
+          <li><NavLink to='/about-us' className={({ isActive }) => isActive ? 'text-[#1F2937] ' : ''}>About Us</NavLink></li>
+          <li><button onClick={toggleChat}>Contact Us</button></li>
+          <li><NavLink to='/make-enquiries' className={({ isActive }) => isActive ? 'text-[#1F2937] ' : ''}>Make Enquiries</NavLink></li>
         </ul>
       </div>
 
       <div className="desktop-menu hidden md:block">
         <ul className="flex text-custom-ash gap-[20px] items-center">
-          <li><NavLink to='/about-us' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>About Us</NavLink></li>
-          <li><NavLink to='/contact-us' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>Contact Us</NavLink></li>
-          <li><NavLink to='/make-enquiries' className={({ isActive }) => isActive ? 'text-[#1F2937] font-semi-bold' : ''}>Make Enquiries</NavLink></li>
+          <li><NavLink to='/about-us' className={({ isActive }) => isActive ? 'text-[#1F2937] ' : ''}>About Us</NavLink></li>
+          <li><button  onClick={toggleChat}>Contact Us</button></li>
+          <li><NavLink to='/make-enquiries' className={({ isActive }) => isActive ? 'text-[#1F2937] ' : ''}>Make Enquiries</NavLink></li>
         </ul>
       </div>
 

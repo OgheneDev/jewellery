@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import facebook from '../assets/images/fb.svg'
 import twitter from '../assets/images/twitter.svg'
@@ -22,7 +22,17 @@ import aliPay from '../assets/images/aliPay.png'
 import bitPay from '../assets/images/bitPay.png'
 import btc from '../assets/images/bitcoin.png'
 
-const Footer = () => {
+
+const Footer = ({toggleChat}) => {
+
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        // Implement subscribe logic here
+        alert(`Subscribed with email: ${subscribeEmail}`)
+    };
+
   return (
     <div>
       <footer className='bg-background flex flex-col text-center md:hidden p-[30px]'>
@@ -51,8 +61,8 @@ const Footer = () => {
 
             <div className='flex flex-col gap-[15px]'>
                 <label className='uppercase text-card-bg'>customer care</label>
-                <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px]'>
-                    <li>Contact Us</li>
+                <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px] cursor-pointer'>
+                    <li><button onClick={toggleChat}>Contact Us</button></li>
                     <li>Payment</li>
                     <li>Bonus Point</li>
                     <li>Notices</li>
@@ -117,8 +127,8 @@ const Footer = () => {
 
             <div className='flex flex-col gap-[15px]'>
                 <label className='uppercase text-card-bg'>customer care</label>
-                <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px]'>
-                    <li>Contact Us</li>
+                <ul className='text-custom-ash text-[13px] flex flex-col gap-[10px] cursor-pointer'>
+                    <li onClick={toggleChat}>Contact Us</li>
                     <li>Payment</li>
                     <li>Bonus Point</li>
                     <li>Notices</li>
@@ -150,10 +160,16 @@ const Footer = () => {
             
             <div className="form mt-[15px] flex flex-col gap-[10px]">
                 <label htmlFor="" className='uppercase text-[13px] text-[#1F2937]'>Sign up for Burn and Co latest news</label>
-                <form action="" className='flex gap-[15px]'>
-                    <input type="email" placeholder='Your email' className='p-[5px] pl-[10px] w-[300px] border border-[#9CA3AF]' />
-                    <button className='bg-[#1F2937] text-white uppercase text-[13px] py-[5px] px-[20px]'>Subscribe</button>
-                    
+                <form onSubmit={handleSubscribe} className='flex gap-[15px]'>
+                    <input
+                     type="email"
+                     placeholder='Your email'
+                     className='p-[5px] pl-[10px] w-[300px] border border-[#9CA3AF]'
+                     value={subscribeEmail}
+                     onChange={(e) => setSubscribeEmail(e.target.value)}
+                      required 
+                     />
+                    <button type='submit' className='bg-[#1F2937] text-white uppercase text-[13px] py-[5px] px-[20px]'>Subscribe</button>
                 </form>
                 <p className='text-[13px] text-[#6B7280]'>By clicking the SUSCRIBE button, you are agreeing to our <Link className='text-[#0F4FCE] underline'>Privacy & cookie policy</Link> </p>
             </div>
