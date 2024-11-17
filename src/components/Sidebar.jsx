@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Sidebar = ({ toggleChat, sendMessageToAdmin }) => {
+const Sidebar = ({ openChat, sendMessageToAdmin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [weight, setWeight] = useState(225.0);
   const [selections, setSelections] = useState({
@@ -40,12 +40,12 @@ const Sidebar = ({ toggleChat, sendMessageToAdmin }) => {
         totalPrice += PRICING[category][selectedItem];
       }
     });
-    return Math.min(totalPrice, 6000);
+    return totalPrice; // Removed the Math.min() cap
   };
 
   const handleEnquiriesClick = () => {
     const totalPrice = calculateTotalPrice();
-
+  
     const message = `
       Order Details:
       - Measurements: ${weight.toFixed(1)}g
@@ -55,12 +55,12 @@ const Sidebar = ({ toggleChat, sendMessageToAdmin }) => {
       - Size: ${selections.size || 'Not selected'}
       - Total Price: $${totalPrice.toFixed(2)}
     `;
-
+  
     // Send the message using sendMessageToAdmin
     sendMessageToAdmin(message);
-
-    // Open the chat window
-    toggleChat();
+  
+    // Open the chat window (don't toggle)
+    openChat();
   };
 
   const renderCheckboxGroup = (category, items) => (

@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState } from 'react';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
@@ -15,8 +16,13 @@ const App = () => {
     return stored ? JSON.parse(stored) : { name: '', email: '', firstMessage: '' };
   });
 
+  // Modified to separate opening and closing actions
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
+  };
+
+  const openChat = () => {
+    setIsChatOpen(true);
   };
 
   const handleUserDetailsUpdate = (newUserDetails) => {
@@ -31,7 +37,7 @@ const App = () => {
         sender: userDetails.name || 'User',
         timestamp: serverTimestamp(),
       });
-  
+
       await setDoc(
         doc(db, 'chats', chatId),
         {
@@ -39,7 +45,7 @@ const App = () => {
         },
         { merge: true }
       );
-  
+
       console.log(`Message sent to chatId: ${chatId}`, message);
     } catch (error) {
       console.error('Error sending message:', error);
@@ -55,6 +61,7 @@ const App = () => {
           path="/make-enquiries"
           element={
             <CustomizePage
+              openChat={openChat}
               toggleChat={toggleChat}
               sendMessageToAdmin={sendMessageToAdmin}
               userDetails={userDetails}
@@ -68,8 +75,8 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <FloatingChat 
-        isOpen={isChatOpen} 
+      <FloatingChat
+        isOpen={isChatOpen}
         toggleChat={toggleChat}
         userDetails={userDetails}
         onUserDetailsUpdate={handleUserDetailsUpdate}
