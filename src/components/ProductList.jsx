@@ -118,7 +118,7 @@ const ProductList = ({ toggleChat }) => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-end items-center space-x-2 mt-4">
+      <div className="flex justify-end items-center space-x-2 mt-4 pr-[20px]">
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index}
