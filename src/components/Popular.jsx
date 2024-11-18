@@ -5,26 +5,26 @@ const Popular = ({ toggleChat }) => {
   
     const popularData = [
         {
-            image:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1730338177/medium-shot-underground-hip-hop-musician_safcaz.png',
-            name: 'Striped Flutter Sleeve Overlap Collar Peplum Hem Necklace',
+            image:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1731944391/WhatsApp_Image_2024-11-18_at_16.28.13_b73e6ed4_fdwqlq.jpg',
+            name: 'Ornate multicolored gemstone necklace with geometric designs.',
             discountPrice: '$120.23',
             originalPrice: '$130.23'
         },
         {
-            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1730338177/luxury-shine-diamonds-digital-art_m7cm85.png',
-            name: 'Striped Flutter Sleeve Overlap Collar Peplum Hem Necklace',
+            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1731944577/premium_photo-1673758910678-e335643d0817_hifo1s.avif',
+            name: 'Silver chain necklace with geometric metallic pendants.',
             discountPrice: '90.00',
             originalPrice: '100.00'
         },
         {
-            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1730338176/luxury-shine-diamonds-digital-art-2_kdrwjb.png',
-            name: 'Striped Flutter Sleeve Overlap Collar Peplum Hem Necklace',
+            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1731945233/woman-posing-as-greek-goddess-front-view_23-2150099205_e87ofc.avif',
+            name: 'Gold-plated statement necklace with intricate colorful gem accents.',
             discountPrice: '140.24',
             originalPrice: '150.11'
         },
         {
-            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1730338177/man-city-fashion-shoot_xmobif.png',
-            name: 'Striped Flutter Sleeve Overlap Collar Peplum Hem Necklace',
+            image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1731945695/lovely-young-woman-with-black-curly-hair-black-shiny-dress_144627-23776_kqfk65.jpg',
+            name: 'Metallic loop-link statement necklace.',
             discountPrice: '105.11',
             originalPrice: '120.23'
         }
@@ -41,7 +41,7 @@ const Popular = ({ toggleChat }) => {
                  key={index}
                  className='card w-[100%] text-text-color md:w-[265px]'
                 >
-                    <img src={card.image} alt="" className='w-[100%] mb-[10px]' />
+                    <img src={card.image} alt="" className='w-[100%] mb-[10px] h-[400px]' />
                     <div className="text-content flex flex-col gap-[20px]">
                         <p>{card.name}</p>
                         <div className='flex justify-between'>

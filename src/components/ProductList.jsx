@@ -16,11 +16,6 @@ const ProductList = ({ toggleChat }) => {
 
   const productData = [
     {
-      image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1730338177/luxury-shine-diamonds-digital-art_m7cm85.png',
-      name: 'Striped Flutter Sleeve Overlap Collar Peplum Hem Necklace',
-      ...getRandomPriceData(),
-    },
-    {
       image: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1731940759/25632006_56027826_1000_o3cova.jpg',
       name: 'Essential diamond tennis bracelet',
       ...getRandomPriceData(),
@@ -94,7 +89,7 @@ const ProductList = ({ toggleChat }) => {
             key={index}
             className="card w-[100%] text-text-color md:w-[250px]"
           >
-            <img src={card.image} alt="" className="w-[100%] mb-[10px]" />
+            <img src={card.image} alt="" className="w-[100%] h-[400px] mb-[10px]" />
             <div className="text-content flex flex-col gap-[20px]">
               <p>{card.name}</p>
               <div className="flex justify-between">
